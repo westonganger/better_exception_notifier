@@ -1,0 +1,18 @@
+<ul style="list-style: none">
+  <li>
+    <strong>Session ID: </strong>
+    <span>
+      <%= if @request.ssl? %>
+        <%= "[FILTERED]" %>
+      <% elsif @request.session['session_id'] %>
+        <%= @request.session['session_id'] %>
+      <% else %>
+        <%= (@request.env["rack.session.options"] && @request.env["rack.session.options"][:id]).inspect %>
+      <% end %>
+    </span>
+  </li>
+  <li>
+    <strong>Data: </strong>
+    <span><%= PP.pp(@request.session.to_hash, "") %></span>
+  </li>
+</ul>
